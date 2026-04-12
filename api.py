@@ -60,7 +60,7 @@ CITY_COORDS = {
     "Washington_DC":   (38.9072,  -77.0369),
 }
 
-# EPA CBSA names for our 21 cities
+# EPA CBSA names for our 20 cities
 CITY_MAP = {
     "Birmingham, AL":   "Birmingham-Hoover, AL",
     "Phoenix, AZ":      "Phoenix-Mesa-Chandler, AZ",
@@ -97,10 +97,8 @@ CENSUS_VARS = ",".join([
 ])
 
 
-# ============================================================================
-# CENSUS
-# ============================================================================
 
+# CENSUS
 def fetch_census_city(place_fips, state_fips, city_name, state_abbr, year):
     url = f"https://api.census.gov/data/{year}/acs/acs5"
     params = {
@@ -157,9 +155,8 @@ def fetch_all_census():
     return df
 
 
-# ============================================================================
-# WEATHER  (Open-Meteo — no key needed)
-# ============================================================================
+
+# WEATHER 
 
 def fetch_weather_city(city_name, state_abbr, lat, lon, year):
     url = "https://archive-api.open-meteo.com/v1/archive"
@@ -227,9 +224,7 @@ def fetch_all_weather():
     return df
 
 
-# ============================================================================
-# AIR QUALITY  (EPA pre-built files — Rush's notebook style)
-# ============================================================================
+# AIR QUALITY 
 
 def explore_json_structure(json_data):
     """Review JSON structure and navigation — same as Rush's original."""
@@ -331,9 +326,7 @@ def merge_csvs():
     return merged
 
 
-# ============================================================================
-# EXERCISES  (Rush's notebook style)
-# ============================================================================
+# test exercises 
 
 def exercise_1(df):
     """What cities had the worst air quality each year?"""
@@ -354,10 +347,7 @@ def exercise_3(df):
     return city_names
 
 
-# ============================================================================
 # MAIN
-# ============================================================================
-
 def main():
     # --- Step 1: Fetch and save each dataset individually ---
     print("\n--- Fetching Census ACS Data ---")
