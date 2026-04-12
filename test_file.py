@@ -5,7 +5,6 @@ import importlib
 import sys
 import os
 
-
 MODULE = "api"
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -63,7 +62,7 @@ def sample_epa_data():
     ]}
 
 
-# Census Test
+# test 1: census 
 def test_fetch_census_city_success():
     fake_json = [
         ["B19013_001E","B25064_001E","B25077_001E","B23025_005E",
@@ -86,7 +85,7 @@ def test_fetch_census_city_success():
     assert result["total_population"] == "2700000"
 
 
-
+# test 2: census and error code 
 
 def test_fetch_census_city_bad_request():
     mock_resp = MagicMock()
@@ -98,7 +97,7 @@ def test_fetch_census_city_bad_request():
     assert result is None
 
 
-# ── test 3: weather — correct aggregation ─────────────────────────────────────
+# test 3: weather — correct aggregation
 
 def test_fetch_weather_city_aggregation():
     fake_daily = {
@@ -126,7 +125,7 @@ def test_fetch_weather_city_aggregation():
     assert result["avg_sunshine_hrs_per_day"] == 7.5
 
 
-# ── test 4: convert_to_dataframe — filters correctly ─────────────────────────
+# test 4: convert_to_dataframe — filters correctly 
 
 def test_convert_to_dataframe_filters(sample_epa_data):
     df = convert_to_dataframe(sample_epa_data, 2022)
@@ -135,7 +134,7 @@ def test_convert_to_dataframe_filters(sample_epa_data):
     assert (df["year"] == 2022).all()
 
 
-# ── test 5: convert_to_dataframe — AQI fields correct ────────────────────────
+# test 5: convert_to_dataframe — AQI fields correct
 
 def test_convert_to_dataframe_aqi_fields(sample_epa_data):
     df = convert_to_dataframe(sample_epa_data, 2022)
@@ -146,14 +145,14 @@ def test_convert_to_dataframe_aqi_fields(sample_epa_data):
     assert chicago["days_pm25"] == 270
 
 
-# ── test 6: exercise_1 — worst AQI city per year ─────────────────────────────
+# test 6: exercise_1 — worst AQI city per year 
 
 def test_exercise_1_worst_city(sample_aqi_df, capsys):
     exercise_1(sample_aqi_df)
     assert "Phoenix, AZ" in capsys.readouterr().out
 
 
-# ── test 7: exercise_2 — sorted by avg good days ─────────────────────────────
+# test 7: exercise_2 — sorted by avg good days 
 
 def test_exercise_2_avg_good_days(sample_aqi_df, capsys):
     exercise_2(sample_aqi_df)
@@ -161,7 +160,7 @@ def test_exercise_2_avg_good_days(sample_aqi_df, capsys):
     assert out.index("Chicago, IL") < out.index("Phoenix, AZ")
 
 
-# ── test 8: exercise_3 — unique city list ────────────────────────────────────
+# test 8: exercise_3 — unique city list 
 
 def test_exercise_3_unique_cities(sample_aqi_df):
     cities = exercise_3(sample_aqi_df)
